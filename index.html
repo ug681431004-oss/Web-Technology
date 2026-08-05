@@ -1,84 +1,626 @@
 <!DOCTYPE html>
-<!-- Root element of the HTML page -->
-<html>
+<html lang="en">
 <head>
-    <!-- Meta tags: hidden info about the page, not shown to the user -->
-    <meta charset="UTF-8"> <!-- Makes sure Arabic, Thai, and English text display correctly -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes page look good on phones -->
-    <meta name="author" content="Sultan"> <!-- Who made this page -->
-    <meta name="description" content="Curriculum Vitae of Sultan, IT student at Fatoni University"> <!-- Short summary for search engines -->
-    <meta name="keywords" content="Sultan, CV, Information Technology, Fatoni University, IT Student"> <!-- Keywords related to the page -->
-    <meta name="language" content="English"> <!-- Language of the content -->
-    <meta name="robots" content="index, follow"> <!-- Tells search engines to index this page -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Sultan">
+<meta name="description" content="Curriculum Vitae of Sultan, IT student at Fatoni University">
+<meta name="keywords" content="Sultan, CV, Information Technology, Fatoni University, IT Student">
+<meta name="robots" content="index, follow">
+<title>Sultan — IT Student, Fatoni University</title>
 
-    <title>Sultan CV</title> <!-- Text shown in the browser tab -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+Arabic:wght@500&family=Noto+Sans+Thai:wght@500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg: #0c1420;
+    --bg-soft: #0f1a2a;
+    --panel: #142235;
+    --panel-2: #1a2c44;
+    --line: #24374f;
+    --text: #e9eef4;
+    --text-dim: #94a7bd;
+    --teal: #4fd1c5;
+    --teal-dim: rgba(79,209,197,.18);
+    --amber: #f2a65a;
+    --amber-dim: rgba(242,166,90,.16);
+    --radius: 10px;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection{ background: var(--teal-dim); color: var(--text); }
+
+  a{ color: inherit; }
+
+  h1,h2,h3{ font-family: var(--display); margin: 0; letter-spacing: -0.01em; }
+
+  .eyebrow{
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+  }
+
+  /* ---------- layout shell ---------- */
+  .shell{
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    min-height: 100vh;
+  }
+
+  /* ---------- nav: network topology rail ---------- */
+  .rail{
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: 40px 0 40px 34px;
+    border-right: 1px solid var(--line);
+    background: linear-gradient(180deg, var(--bg-soft), var(--bg));
+  }
+  .rail-brand{
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    margin-bottom: 46px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .rail-brand .dot{ width:6px; height:6px; border-radius:50%; background: var(--teal); box-shadow: 0 0 8px var(--teal); }
+
+  .topo{ position: relative; }
+  .topo-line{
+    position: absolute;
+    left: 5px; top: 8px; bottom: 8px;
+    width: 1px;
+    background: var(--line);
+  }
+  .node-btn{
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    text-align: left;
+    width: 100%;
+  }
+  .node-btn .node{
+    flex: 0 0 auto;
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--line);
+    transition: all .25s ease;
+    z-index: 1;
+  }
+  .node-btn:hover{ color: var(--text); }
+  .node-btn:hover .node{ border-color: var(--teal); }
+  .node-btn.active{ color: var(--teal); }
+  .node-btn.active .node{
+    border-color: var(--teal);
+    background: var(--teal);
+    box-shadow: 0 0 0 4px var(--teal-dim);
+  }
+
+  .rail-foot{
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+  .print-btn{
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--amber);
+    background: var(--amber-dim);
+    border: 1px solid rgba(242,166,90,.35);
+    padding: 9px 14px;
+    border-radius: 7px;
+    cursor: pointer;
+    letter-spacing: .04em;
+  }
+  .print-btn:hover{ background: rgba(242,166,90,.28); }
+
+  /* mobile nav */
+  .rail-toggle{ display:none; }
+
+  main{ min-width: 0; }
+
+  section{
+    padding: 90px 64px;
+    max-width: 980px;
+    border-bottom: 1px solid var(--line);
+  }
+  section:last-of-type{ border-bottom: none; }
+
+  /* ---------- hero ---------- */
+  #home{
+    position: relative;
+    padding-top: 110px;
+    padding-bottom: 110px;
+    overflow: hidden;
+  }
+  .hero-graph{
+    position: absolute;
+    top: -60px; right: -80px;
+    width: 520px; height: 520px;
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  .hero-graph circle{ fill: var(--teal); }
+  .hero-graph line{ stroke: var(--line); stroke-width: 1; }
+  .hero-graph .pulse{ animation: pulse 3.2s ease-in-out infinite; }
+  @keyframes pulse{
+    0%,100%{ opacity: .4; r:3; }
+    50%{ opacity: 1; r:4.5; }
+  }
+  @media (prefers-reduced-motion: reduce){ .hero-graph .pulse{ animation: none; } }
+
+  .hero-name{
+    font-size: clamp(3rem, 8vw, 5.4rem);
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-role{
+    font-size: 1.15rem;
+    color: var(--text-dim);
+    margin-top: 14px;
+    max-width: 46ch;
+    position: relative; z-index:1;
+  }
+  .hero-cta{
+    margin-top: 34px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    position: relative; z-index:1;
+  }
+  .btn{
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    letter-spacing: .03em;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--text);
+    transition: all .2s ease;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn.primary{
+    background: var(--teal);
+    color: #06201d;
+    border-color: var(--teal);
+    font-weight: 500;
+  }
+  .btn.primary:hover{ background: #6fe0d5; }
+  .btn:hover{ border-color: var(--teal); color: var(--teal); }
+
+  h2.section-title{
+    font-size: 1.9rem;
+    margin-bottom: 8px;
+  }
+  .section-sub{
+    color: var(--text-dim);
+    margin: 0 0 40px;
+    max-width: 60ch;
+  }
+
+  /* ---------- about ---------- */
+  #about p{ max-width: 68ch; color: var(--text-dim); font-size: 1.02rem; }
+
+  /* ---------- languages ---------- */
+  .lang-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .lang-card{
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px;
+    cursor: pointer;
+    transition: border-color .2s ease, transform .2s ease;
+    text-align: left;
+  }
+  .lang-card:hover{ border-color: var(--teal); transform: translateY(-2px); }
+  .lang-card.active{ border-color: var(--teal); background: var(--panel-2); }
+  .lang-name{ font-family: var(--display); font-size: 1.15rem; font-weight: 600; }
+  .lang-level{ font-family: var(--mono); font-size: .72rem; color: var(--teal); text-transform: uppercase; letter-spacing: .08em; margin-top: 4px; }
+  .lang-phrase{
+    margin-top: 14px;
+    font-size: 1.3rem;
+    min-height: 1.6em;
+    color: var(--text);
+  }
+  .lang-phrase[lang="ar"]{ font-family: 'Noto Sans Arabic', sans-serif; direction: rtl; }
+  .lang-phrase[lang="th"]{ font-family: 'Noto Sans Thai', sans-serif; }
+  .lang-meaning{ font-size: .82rem; color: var(--text-dim); margin-top: 4px; }
+
+  /* ---------- skills ---------- */
+  .chip-row{ display:flex; flex-wrap: wrap; gap: 10px; }
+  .chip{
+    font-family: var(--mono);
+    font-size: .82rem;
+    padding: 9px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    color: var(--text-dim);
+    background: var(--panel);
+  }
+
+  /* ---------- projects ---------- */
+  .filters{
+    display:flex; flex-wrap: wrap; gap: 10px;
+    margin-bottom: 32px;
+  }
+  .filter-btn{
+    font-family: var(--mono);
+    font-size: .78rem;
+    padding: 8px 15px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all .2s ease;
+  }
+  .filter-btn:hover{ color: var(--text); border-color: var(--teal); }
+  .filter-btn.active{
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #06201d;
+    font-weight: 500;
+  }
+
+  .project-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+  }
+  .project-card{
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 24px;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .project-card:hover{ border-color: var(--teal); transform: translateY(-3px); }
+  .project-card.hidden{ display: none; }
+  .project-tag{
+    font-family: var(--mono);
+    font-size: .68rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--amber);
+  }
+  .project-title{ font-family: var(--display); font-size: 1.15rem; margin: 8px 0 10px; }
+  .project-desc{ color: var(--text-dim); font-size: .92rem; }
+
+  /* ---------- activities ---------- */
+  .activity-list{ display:flex; flex-direction:column; gap: 14px; }
+  .activity-row{
+    display:flex; gap: 18px; align-items: baseline;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .activity-row:last-child{ border-bottom:none; }
+  .activity-label{ font-family: var(--mono); font-size: .75rem; color: var(--teal); flex: 0 0 130px; }
+  .activity-detail{ color: var(--text-dim); }
+
+  footer{
+    padding: 40px 64px 60px;
+    color: var(--text-dim);
+    font-family: var(--mono);
+    font-size: .78rem;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 860px){
+    .shell{ grid-template-columns: 1fr; }
+    .rail{
+      position: sticky;
+      top: 0;
+      height: auto;
+      width: 100%;
+      padding: 16px 20px;
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+      z-index: 10;
+    }
+    .rail-brand{ margin-bottom: 12px; }
+    .topo{ display: flex; overflow-x: auto; gap: 4px; }
+    .topo-line{ display:none; }
+    .node-btn{ width: auto; padding: 8px 10px; white-space: nowrap; }
+    .rail-foot{ display:none; }
+    section{ padding: 56px 22px; }
+    .hero-graph{ display:none; }
+  }
+
+  @media print{
+    .rail{ display:none; }
+    .shell{ grid-template-columns: 1fr; }
+    body{ background: #fff; color: #111; }
+    section{ border-bottom: none; padding: 20px 0; }
+    .btn, .filters, .print-btn{ display:none; }
+  }
+</style>
 </head>
 <body>
-    <!-- Everything below this line is visible to the user -->
 
-    <!-- Name and basic info -->
-    <h1>Sultan</h1>
-    <p>Major: Information Technology</p>
-    <p>Faculty of Science and Technology, Fatoni University</p>
+<div class="shell">
 
-    <!-- Short personal summary -->
-    <h2>About Me</h2>
-    <p>I am an Information Technology student with experience in networking, web development,
-    databases, and statistical analysis. I enjoy working on both individual and group projects,
-    and I am comfortable communicating in multiple languages.</p>
+  <!-- ============ NAV RAIL (network topology) ============ -->
+  <nav class="rail" aria-label="Section navigation">
+    <div class="rail-brand"><span class="dot"></span> SULTAN.CV</div>
+    <div class="topo">
+      <div class="topo-line" aria-hidden="true"></div>
+      <button class="node-btn" data-target="home"><span class="node"></span>Home</button>
+      <button class="node-btn" data-target="about"><span class="node"></span>About</button>
+      <button class="node-btn" data-target="languages"><span class="node"></span>Languages</button>
+      <button class="node-btn" data-target="skills"><span class="node"></span>Skills</button>
+      <button class="node-btn" data-target="projects"><span class="node"></span>Projects</button>
+      <button class="node-btn" data-target="activities"><span class="node"></span>Activities</button>
+    </div>
+    <div class="rail-foot">
+      <button class="print-btn" onclick="window.print()">↓ Save as PDF</button>
+    </div>
+  </nav>
 
-    <!-- Languages section -->
-    <h2>Languages I Speak</h2>
-    <ul>
-        <li>Arabic - native</li>
-        <li>English - fluent</li>
-        <li>Thai - fluent</li>
-    </ul>
+  <main>
 
-    <!-- Tools and programming languages used -->
-    <h2>Programming Languages / Tools I Used</h2>
-    <ul>
-        <li>HTML - for building web pages</li>
-        <li>Microsoft Excel - for statistical analysis and data tables</li>
-        <li>draw.io - for network and ERD diagrams</li>
-        <li>Microsoft PowerPoint - for presentations</li>
-        <li>Microsoft Word - for reports and documentation</li>
-    </ul>
-    <p>Adobe Photoshop - for basic graphic design and image editing</p>
+    <!-- ============ HOME ============ -->
+    <section id="home">
+      <svg class="hero-graph" viewBox="0 0 400 400" aria-hidden="true">
+        <line x1="60" y1="80" x2="180" y2="150"></line>
+        <line x1="180" y1="150" x2="320" y2="70"></line>
+        <line x1="180" y1="150" x2="230" y2="260"></line>
+        <line x1="230" y1="260" x2="120" y2="320"></line>
+        <line x1="230" y1="260" x2="340" y2="300"></line>
+        <line x1="60" y1="80" x2="230" y2="260"></line>
+        <circle class="pulse" cx="60" cy="80" r="3.5"></circle>
+        <circle class="pulse" cx="180" cy="150" r="4" style="animation-delay:.5s"></circle>
+        <circle class="pulse" cx="320" cy="70" r="3" style="animation-delay:1s"></circle>
+        <circle class="pulse" cx="230" cy="260" r="4" style="animation-delay:1.5s"></circle>
+        <circle class="pulse" cx="120" cy="320" r="3" style="animation-delay:2s"></circle>
+        <circle class="pulse" cx="340" cy="300" r="3" style="animation-delay:2.5s"></circle>
+      </svg>
 
-    <!-- Projects section: each project has a subheading (h3) and description -->
-    <h2>Projects I Have Done</h2>
+      <p class="eyebrow">Curriculum Vitae</p>
+      <h1 class="hero-name">Sultan</h1>
+      <p class="hero-role">IT student at the Faculty of Science and Technology, Fatoni University — working across networking, web development, databases, and statistical analysis, and comfortable moving between Arabic, English, and Thai.</p>
+      <div class="hero-cta">
+        <button class="btn primary" onclick="document.getElementById('projects').scrollIntoView()">View projects</button>
+        <button class="btn" onclick="window.print()">Save as PDF</button>
+      </div>
+    </section>
 
-    <h3>Lingua Hub</h3>
-    <p>A multilingual language learning platform for Arabic, Malay, English, and Thai learners.
-    Built as a group project, submitted as a business plan proposal, including planning the
-    frontend and backend frameworks.</p>
+    <!-- ============ ABOUT ============ -->
+    <section id="about">
+      <p class="eyebrow">01 / Profile</p>
+      <h2 class="section-title">About me</h2>
+      <p>I am an Information Technology student with experience in networking, web development,
+      databases, and statistical analysis. I enjoy working on both individual and group projects,
+      and I am comfortable communicating in multiple languages.</p>
+    </section>
 
-    <h3>SOHO Network Diagram for TDS Company</h3>
-    <p>Designed a small office/home office network diagram using draw.io, including proper
-    device icons, color-coded department zones, VLAN and subnet labels, and a firewall node.</p>
+    <!-- ============ LANGUAGES ============ -->
+    <section id="languages">
+      <p class="eyebrow">02 / Communication</p>
+      <h2 class="section-title">Languages I speak</h2>
+      <p class="section-sub">Tap a card to hear a small greeting in that language.</p>
+      <div class="lang-grid" id="langGrid">
+        <button class="lang-card" data-lang="ar">
+          <div class="lang-name">Arabic</div>
+          <div class="lang-level">Native</div>
+          <div class="lang-phrase"></div>
+          <div class="lang-meaning"></div>
+        </button>
+        <button class="lang-card" data-lang="en">
+          <div class="lang-name">English</div>
+          <div class="lang-level">Fluent</div>
+          <div class="lang-phrase"></div>
+          <div class="lang-meaning"></div>
+        </button>
+        <button class="lang-card" data-lang="th">
+          <div class="lang-name">Thai</div>
+          <div class="lang-level">Fluent</div>
+          <div class="lang-phrase"></div>
+          <div class="lang-meaning"></div>
+        </button>
+      </div>
+    </section>
 
-    <h3>Multilingual Language Improvement System (Database Project)</h3>
-    <p>Designed an ERD diagram and built a full database with 10 tables, sample data, and a
-    supporting data dictionary.</p>
+    <!-- ============ SKILLS ============ -->
+    <section id="skills">
+      <p class="eyebrow">03 / Toolkit</p>
+      <h2 class="section-title">Programming languages &amp; tools</h2>
+      <p class="section-sub">What I reach for when building, analyzing, and presenting work.</p>
+      <div class="chip-row">
+        <span class="chip">HTML</span>
+        <span class="chip">Microsoft Excel</span>
+        <span class="chip">draw.io</span>
+        <span class="chip">Microsoft PowerPoint</span>
+        <span class="chip">Microsoft Word</span>
+        <span class="chip">Adobe Photoshop</span>
+      </div>
+    </section>
 
-    <h3>Statistics Mini-Project (One-Way and Two-Way ANOVA)</h3>
-    <p>Produced an Excel workbook with statistical analysis and an 11-slide presentation
-    with a presentation script, for course IT2301-112.</p>
+    <!-- ============ PROJECTS ============ -->
+    <section id="projects">
+      <p class="eyebrow">04 / Work</p>
+      <h2 class="section-title">Projects I have done</h2>
+      <p class="section-sub">Filter by area to see the work behind each one.</p>
 
-    <h3>Network Devices Discovery</h3>
-    <p>Compared two fiber routers and presented the findings in a formatted Word document.</p>
+      <div class="filters" id="filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="networking">Networking</button>
+        <button class="filter-btn" data-filter="database">Database</button>
+        <button class="filter-btn" data-filter="web">Web &amp; Business</button>
+        <button class="filter-btn" data-filter="stats">Statistics</button>
+      </div>
 
-    <h3>Correlation and Regression Analysis</h3>
-    <p>Completed an Excel-based assignment analyzing correlation and regression across four
-    different datasets.</p>
+      <div class="project-grid" id="projectGrid">
+        <article class="project-card" data-cat="web">
+          <p class="project-tag">Web &amp; Business</p>
+          <h3 class="project-title">Lingua Hub</h3>
+          <p class="project-desc">A multilingual language learning platform for Arabic, Malay, English, and Thai learners. Built as a group project and submitted as a business plan proposal, including planning the frontend and backend frameworks.</p>
+        </article>
 
-    <!-- Activities and hobbies -->
-    <h2>Activities I Join</h2>
-    <p>Gaming - Dragon Ball FighterZ, Delta Force, God of War, Yakuza series</p>
-    <p>Graphic design - Photoshop effects and image compositing</p>
-    <p>Halal investing - exploring dividend stocks and ETFs</p>
-    <p>Watching TV series - such as Game of Thrones</p>
+        <article class="project-card" data-cat="networking">
+          <p class="project-tag">Networking</p>
+          <h3 class="project-title">SOHO Network Diagram — TDS Company</h3>
+          <p class="project-desc">Designed a small office/home office network diagram using draw.io, including proper device icons, color-coded department zones, VLAN and subnet labels, and a firewall node.</p>
+        </article>
+
+        <article class="project-card" data-cat="database">
+          <p class="project-tag">Database</p>
+          <h3 class="project-title">Multilingual Language Improvement System</h3>
+          <p class="project-desc">Designed an ERD diagram and built a full database with 10 tables, sample data, and a supporting data dictionary.</p>
+        </article>
+
+        <article class="project-card" data-cat="stats">
+          <p class="project-tag">Statistics</p>
+          <h3 class="project-title">Statistics Mini-Project — One-Way &amp; Two-Way ANOVA</h3>
+          <p class="project-desc">Produced an Excel workbook with statistical analysis and an 11-slide presentation with a presentation script, for course IT2301-112.</p>
+        </article>
+
+        <article class="project-card" data-cat="networking">
+          <p class="project-tag">Networking</p>
+          <h3 class="project-title">Network Devices Discovery</h3>
+          <p class="project-desc">Compared two fiber routers and presented the findings in a formatted Word document.</p>
+        </article>
+
+        <article class="project-card" data-cat="stats">
+          <p class="project-tag">Statistics</p>
+          <h3 class="project-title">Correlation &amp; Regression Analysis</h3>
+          <p class="project-desc">Completed an Excel-based assignment analyzing correlation and regression across four different datasets.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ ACTIVITIES ============ -->
+    <section id="activities">
+      <p class="eyebrow">05 / Outside class</p>
+      <h2 class="section-title">Activities I enjoy</h2>
+      <div class="activity-list">
+        <div class="activity-row">
+          <span class="activity-label">Gaming</span>
+          <span class="activity-detail">Dragon Ball FighterZ, Delta Force, God of War, Yakuza series</span>
+        </div>
+        <div class="activity-row">
+          <span class="activity-label">Graphic design</span>
+          <span class="activity-detail">Photoshop effects and image compositing</span>
+        </div>
+        <div class="activity-row">
+          <span class="activity-label">Halal investing</span>
+          <span class="activity-detail">Exploring dividend stocks and ETFs</span>
+        </div>
+        <div class="activity-row">
+          <span class="activity-label">TV series</span>
+          <span class="activity-detail">Watching shows such as Game of Thrones</span>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Sultan — Faculty of Science and Technology, Fatoni University
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  // ---- active nav highlighting via scroll position ----
+  const sections = document.querySelectorAll('main section');
+  const navButtons = document.querySelectorAll('.node-btn');
+
+  navButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = document.getElementById(btn.dataset.target);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navButtons.forEach(b => b.classList.remove('active'));
+        const match = document.querySelector(`.node-btn[data-target="${entry.target.id}"]`);
+        if (match) match.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+
+  sections.forEach(s => observer.observe(s));
+
+  // ---- language cards ----
+  const phrases = {
+    ar: { text: 'مرحباً، اسمي سلطان', meaning: '“Hello, my name is Sultan”' },
+    en: { text: 'Hello, my name is Sultan', meaning: 'Native tongue of this CV' },
+    th: { text: 'สวัสดีครับ ผมชื่อสุลต่าน', meaning: '“Hello, my name is Sultan”' }
+  };
+
+  document.querySelectorAll('.lang-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const isActive = card.classList.contains('active');
+      document.querySelectorAll('.lang-card').forEach(c => {
+        c.classList.remove('active');
+        c.querySelector('.lang-phrase').textContent = '';
+        c.querySelector('.lang-phrase').removeAttribute('lang');
+        c.querySelector('.lang-meaning').textContent = '';
+      });
+      if (!isActive) {
+        const lang = card.dataset.lang;
+        card.classList.add('active');
+        const phraseEl = card.querySelector('.lang-phrase');
+        phraseEl.textContent = phrases[lang].text;
+        phraseEl.setAttribute('lang', lang);
+        card.querySelector('.lang-meaning').textContent = phrases[lang].meaning;
+      }
+    });
+  });
+
+  // open English by default
+  document.querySelector('.lang-card[data-lang="en"]').click();
+
+  // ---- project filters ----
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      projectCards.forEach(card => {
+        const show = filter === 'all' || card.dataset.cat === filter;
+        card.classList.toggle('hidden', !show);
+      });
+    });
+  });
+</script>
 
 </body>
 </html>
