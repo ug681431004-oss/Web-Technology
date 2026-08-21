@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multilingual Language Improvement System</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Arabic:wght@500;700&family=Noto+Sans+Thai:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- الربط بملف الـ CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Header / Fixed Navigation Bar -->
+<header class="topnav" id="topnav">
+  <div class="wrap">
+    <nav>
+      <a href="#play">Play</a>
+      <a href="#dictionary">Dictionary</a>
+      <a href="#about">Structure</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Main Landing Hero View -->
+<section class="hero">
+  <div class="wrap inner">
+    <header>
+      <p class="eyebrow">Language learning · Database-driven</p>
+      <h1>Multilingual Language<br>Improvement System</h1>
+      <p class="lede">
+        A vocabulary system built across four languages at once. Every word carries
+        its translation in all four — so matching one pulls you straight into the others.
+      </p>
+      <ul class="lang-row">
+        <li class="lang-chip">English</li>
+        <li class="lang-chip">العربية</li>
+        <li class="lang-chip">ไทย</li>
+        <li class="lang-chip">Bahasa Melayu</li>
+      </ul>
+      <a href="#play" class="cta">Enter &amp; play →</a>
+      <a href="#dictionary" class="cta cta-outline" style="margin-left:10px;">Browse dictionary →</a>
+    </header>
+
+    <!-- Visualizer component showing orbiting language tags -->
+    <figure class="orbit-wrap" aria-hidden="true">
+      <span class="orbit-ring"></span>
+      <span class="orbit-ring r2"></span>
+      <figcaption class="orbit-core">4×<span>LANGUAGES<br>ONE&nbsp;SYSTEM</span></figcaption>
+      <span class="glyph g1"><em>A</em></span>
+      <span class="glyph g2 lang-ar"><em>ا</em></span>
+      <span class="glyph g3 lang-th"><em>ก</em></span>
+      <span class="glyph g4"><em>M</em></span>
+    </figure>
+  </div>
+</section>
+
+<!-- Interactive Gameplay Core Container -->
+<main id="play">
+  <div class="wrap">
+    <h2>Play &amp; practice</h2>
+    <p class="sub">Four mini-games across 16 categories — greetings, numbers,
+    colors, animals, family, food, body, weather, days, questions, verbs,
+    school, time, clothing, places, and adjectives.</p>
+
+    <!-- STEP 1: Device Configuration Panel -->
+    <article class="panel" id="devicePanel">
+      <fieldset class="field" style="margin-bottom:16px; border:none; padding:0;">
+        <legend><label>What are you playing on?</label></legend>
+      </fieldset>
+      <menu class="choice-grid">
+        <li class="choice-card" data-device="phone">
+          <span class="icon">📱</span>
+          <h4>Phone</h4>
+          <p>Bigger tap targets, tap-to-answer games front and center.</p>
+        </li>
+        <li class="choice-card" data-device="pc">
+          <span class="icon">💻</span>
+          <h4>PC</h4>
+          <p>Keyboard shortcuts, typing challenge unlocked.</p>
+        </li>
+      </menu>
+    </article>
+
+    <!-- STEP 2: Mini-Game Selection Panel -->
+    <article class="panel" id="modePanel" style="display:none;">
+      <button class="back-link" id="backToDevice">← change device</button>
+      <fieldset class="field" style="margin-bottom:16px; border:none; padding:0;">
+        <legend><label>Choose a mini-game</label></legend>
+      </fieldset>
+      <menu class="choice-grid modes">
+        <li class="choice-card" data-mode="match">
+          <span class="icon">🔗</span>
+          <h4>Matching</h4>
+          <p>Tap pairs across two languages.</p>
+          <span class="badge rec">Works everywhere</span>
+        </li>
+        <li class="choice-card" data-mode="quiz">
+          <span class="icon">✅</span>
+          <h4>Multiple Choice</h4>
+          <p>Pick the right translation from four options.</p>
+          <span class="badge rec">Works everywhere</span>
+        </li>
+        <li class="choice-card" data-mode="type">
+          <span class="icon">⌨️</span>
+          <h4>Typing Challenge</h4>
+          <p>Type the translation yourself.</p>
+          <span class="badge" id="typeBadge">Best on PC</span>
+        </li>
+        <li class="choice-card" data-mode="flash">
+          <span class="icon">🗂️</span>
+          <h4>Flashcards</h4>
+          <p>No scoring — flip cards and read at your own pace.</p>
+          <span class="badge rec">Works everywhere</span>
+        </li>
+      </menu>
+    </article>
+
+    <!-- STEP 3: Language & Difficulty Setup Panel -->
+    <article class="panel" id="setupPanel" style="display:none;">
+      <button class="back-link" id="backToMode">← change mini-game</button>
+      <output class="current-picks" id="currentPicks"></output>
+      <fieldset class="setup-grid" style="border:none;">
+        <p class="field">
+          <label for="fromLang">From</label>
+          <select id="fromLang">
+            <option value="en">English</option>
+            <option value="ar">العربية (Arabic)</option>
+            <option value="th">ไทย (Thai)</option>
+            <option value="ms">Bahasa Melayu</option>
+          </select>
+        </p>
+        <p class="field">
+          <label for="toLang">To</label>
+          <select id="toLang">
+            <option value="ar">العربية (Arabic)</option>
+            <option value="en">English</option>
+            <option value="th">ไทย (Thai)</option>
+            <option value="ms">Bahasa Melayu</option>
+          </select>
+        </p>
+      </fieldset>
+      <fieldset class="field" id="diffField" style="border:none; padding:0;">
+        <label>Difficulty</label>
+        <menu class="diff-row" style="padding:0; margin:6px 0 0;">
+          <button class="diff-btn active" data-diff="easy">Easy · no timer</button>
+          <button class="diff-btn" data-diff="medium">Medium · 45s</button>
+          <button class="diff-btn" data-diff="hard">Hard · 25s</button>
+        </menu>
+      </fieldset>
+      <footer style="margin-top:24px; padding:0;">
+        <button class="cta" id="startBtn" style="border:none;">Start</button>
+      </footer>
+    </article>
+
+    <!-- ACTIVE GAMEPLAY HUD AND BOARDS -->
+    <article class="panel" id="gamePanel" style="display:none;">
+      <!-- Game Session Top Bar -->
+      <header class="game-head">
+        <section>
+          <span id="roundLabel">Round</span> <span id="roundNum">1</span> / <span id="totalRounds"></span> — <span class="cat-name" id="catName"></span>
+          <figure class="progress-dots" id="progressDots"></figure>
+        </section>
+        <aside style="display:flex; align-items:center; gap:14px;">
+          <p style="margin:0;"><span id="scoreLabel">Score</span>: <span id="scoreNum">0</span> &nbsp;·&nbsp; <time class="timer" id="timerNum"></time></p>
+          <button class="btn-exit" id="exitBtn">✕ Exit</button>
+        </aside>
+      </header>
+
+      <!-- GAME BOARD 1: Matching Mode -->
+      <section class="board" id="boardMatch">
+        <aside class="col" id="leftCol"></aside>
+        <aside class="col" id="rightCol"></aside>
+      </section>
+
+      <!-- GAME BOARD 2: Multiple Choice Quiz Mode -->
+      <section id="boardQuiz" style="display:none;">
+        <output class="quiz-word" id="quizWord"></output>
+        <menu class="quiz-options" id="quizOptions"></menu>
+      </section>
+
+      <!-- GAME BOARD 3: Typing Mode -->
+      <section id="boardType" style="display:none;">
+        <output class="type-word" id="typeWord"></output>
+        <input type="text" id="typeInput" placeholder="Type the translation…" autocomplete="off" />
+        <output id="typeFeedback"></output>
+        <nav class="type-actions">
+          <button class="cta" id="typeSubmit" style="border:none;">Check</button>
+        </nav>
+      </section>
+
+      <!-- GAME BOARD 4: Interactive Flashcards Mode -->
+      <section id="boardFlash" style="display:none;">
+        <p class="flash-hint">Tap the card to reveal the translation</p>
+        <button class="flash-card" id="flashCard">
+          <output class="flash-front" id="flashFront"></output>
+        </button>
+        <nav class="flash-actions">
+          <button class="cta" id="flashNext" style="border:none;">Next card →</button>
+        </nav>
+      </section>
+    </article>
+
+    <!-- STEP 4: Session Completion & High-Score View -->
+    <article class="panel result" id="resultPanel" style="display:none;">
+      <output class="score" id="finalScore">0 / 20</output>
+      <p id="resultLabel">matched correctly across all rounds</p>
+      <button class="cta" id="replayBtn" style="border:none;">Play again</button>
+    </article>
+  </div>
+</main>
+
+<!-- Interactive Multilingual Dictionary Section -->
+<section id="dictionary">
+  <div class="wrap">
+    <h2>Dictionary</h2>
+    <p class="sub">Over 160 words across 16 categories, in all four languages,
+    side by side. Search or filter by category to read translations directly —
+    no matching required.</p>
+
+    <!-- Controls: Live Text Search & Category Filter Badges -->
+    <article class="panel" style="padding:20px 24px;">
+      <search class="dict-controls">
+        <input type="text" id="dictSearch" placeholder="Search a word in any language…" />
+        <nav class="dict-filters" id="dictFilters"></nav>
+      </search>
+    </article>
+
+    <!-- Data Table View -->
+    <figure class="dict-table-wrap" style="margin:0;">
+      <table class="dict-table" id="dictTable">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>English</th>
+            <th dir="rtl">العربية</th>
+            <th>ไทย</th>
+            <th>Bahasa Melayu</th>
+          </tr>
+        </thead>
+        <tbody id="dictBody"></tbody>
+      </table>
+    </figure>
+  </div>
+</section>
+
+<!-- Technical Architecture / Relational Schema Overview -->
+<article class="about" id="about">
+  <div class="wrap">
+    <h2>How it's structured</h2>
+    <p class="sub">Underneath the game sits a simple relational design — every word
+    is one row, linked to its translations and its category.</p>
+    <ol class="schema">
+      <li class="cell">
+        <h4>Languages</h4>
+        <p>Reference table: code, name, script direction (ltr / rtl).</p>
+      </li>
+      <li class="cell">
+        <h4>Categories</h4>
+        <p>Groups of vocabulary — greetings, numbers, colors, animals.</p>
+      </li>
+      <li class="cell">
+        <h4>Words</h4>
+        <p>One entry per concept, foreign-keyed to its category.</p>
+      </li>
+      <li class="cell">
+        <h4>Translations</h4>
+        <p>One row per word × language, so any pair can be matched.</p>
+      </li>
+    </ol>
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">Built for Database Design coursework, Fatoni University</div>
+</footer>
+
+<!-- الربط بملف الـ JavaScript -->
+<script src="script.js"></script>
+</body>
+</html>
