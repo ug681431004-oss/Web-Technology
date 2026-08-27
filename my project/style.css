@@ -24,7 +24,6 @@
   --display:'Fraunces','Source Serif Pro',Georgia,serif;
   --body:'Inter','Source Serif Pro',Georgia,serif;
 }
-
 /* ==========================================================================
    BASE & RESET STYLES
    ========================================================================== */
@@ -166,7 +165,6 @@ h1{
   background:var(--card); border:1px solid var(--line); border-radius:10px;
   padding:28px; margin-bottom:24px;
 }
-
 .setup-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:22px; margin-top:0; padding:0;}
 @media(max-width:560px){.setup-grid{grid-template-columns:1fr;}}
 .field label{
@@ -264,7 +262,6 @@ h1{
   font-weight:600; transition:all .15s ease;
 }
 .btn-exit:hover{background:var(--th); color:#fff; border-color:var(--th);}
-
 .board{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
 @media(max-width:560px){.board{grid-template-columns:1fr;}}
 .col{display:flex; flex-direction:column; gap:10px;}
@@ -274,7 +271,6 @@ h1{
   transition:transform .15s ease, border-color .12s ease, background .12s ease, box-shadow .15s ease;
   user-select:none; position:relative; font-family:inherit; color:inherit; width:100%;
 }
-
 .tile[dir="rtl"]{font-size:18px;}
 .lang-ar{font-family:'Noto Sans Arabic',sans-serif;}
 .lang-th{font-family:'Noto Sans Thai',sans-serif;}
