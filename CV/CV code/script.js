@@ -340,28 +340,19 @@ filterButtons.forEach((button) => {
 
 const searchInput =
     document.getElementById("siteSearch");
-
 const searchCount =
     document.getElementById("searchCount");
-
-
 const searchableElements =
     document.querySelectorAll(
         "main h1, main h2, main h3, main p, main .chip, main .activity-label, main .activity-detail"
     );
-
-
 /*
    Store original text so we can restore it
    after clearing the search.
 */
-
 const originalText =
     new Map();
-
-
 searchableElements.forEach((element) => {
-
     originalText.set(
         element,
         element.textContent
@@ -369,26 +360,17 @@ searchableElements.forEach((element) => {
 
 });
 
-
 function clearSearchHighlights() {
-
     searchableElements.forEach((element) => {
-
         const original =
             originalText.get(element);
-
         if (original !== undefined) {
-
             element.textContent =
                 original;
-
         }
-
     });
-
 }
 function escapeRegExp(value) {
-
     return value.replace(
         /[.*+?^${}()|[\]\\]/g,
         "\\$&"
